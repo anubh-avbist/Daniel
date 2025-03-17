@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-
-    public float dummyValue;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField]
+    private bool cutscene;
+    public GameObject dialogueBox;
+    
     void Start()
     {
-        
+        dialogueBox.SetActive(false);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         

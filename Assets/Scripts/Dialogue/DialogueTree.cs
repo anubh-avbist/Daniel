@@ -4,25 +4,23 @@ using System.Collections.Generic;
 
 public class DialogueTree : MonoBehaviour
 {
-
     [SerializeField]
     GameObject gameStateObject;
     private GameState gameState;
 
-    [SerializeField]
-    private List<DialogueNode> nodes;
-
+    public List<DialogueNode> nodes;
+    private bool active;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         this.gameState = gameStateObject.GetComponent<GameState>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Next()
     {
-        
+        if(nodes.Count > 0){
+            nodes.RemoveAt(0);
+        }
     }
 }
 

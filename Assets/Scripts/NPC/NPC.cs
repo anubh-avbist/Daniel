@@ -3,30 +3,41 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-
-
     [SerializeField]
     public GameObject gameStateObject;
     private GameState gameState;
-
     public float health;
-    public bool interactable, highlighted, moving;
+    public bool interactable, highlighted, moving, currentlyTalking;
     
     UnityEngine.AI.NavMeshAgent nav;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    DialogueTree dialogueTree;
+
+    void ActivateDialogue(){
+        // Make UI Visible
+        gameState.dialogueBox.SetActive(true);
+
+        // Send Correct DialogueTree To UI
+        DialogueBox dialogueBox = gameState.dialogueBox.GetComponent<DialogueBox>();
+        dialogueBox.dialogueTree = dialogueTree;
+
+        // Activate Tree on UI
+        dialogueBox.Activate();
+    }
+
     void Start()
     {
         this.gameState = this.gameStateObject.GetComponent<GameState>();
-
-
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        dialogueTree = GetComponent<DialogueTree>(); 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(highlighted){
-            Debug.Log(gameState.dummyValue);
+            if(currentlyTalking && interactable){
+                ActivateDialogue();
+                currentlyTalking = false;
+            }
         }
     }
 }
